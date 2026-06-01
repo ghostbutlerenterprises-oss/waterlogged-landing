@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Waterlogged — App Screens (Logbook + Catch)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f1e7cf; --paper-2:#ece0c2; --paper-deep:#e6d8b6;
+    --ink:#1b2a31; --ink-soft:#3a4d55; --navy:#1f3b49;
+    --buoy:#b23a2b; --brass:#b9852f; --brass-lt:#d3a04a; --teal:#4f6f63;
+    --rule:rgba(27,42,49,.26);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Work Sans",sans-serif;color:var(--ink);background:var(--navy);
+    min-height:100vh;padding:46px 20px;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+  .stage{max-width:920px;margin:0 auto;position:relative;z-index:1}
+  .stage-h{text-align:center;color:var(--paper);margin-bottom:36px}
+  .stage-h .k{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--brass-lt)}
+  .stage-h h1{font-family:"Fraunces",serif;font-weight:900;font-size:30px;margin-top:8px}
+  .phones{display:flex;gap:46px;justify-content:center;flex-wrap:wrap}
+  .framewrap{text-align:center}
+  .cap{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:#bcae8c;margin-top:18px}
+
+  .mono{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.1em}
+  .serif{font-family:"Fraunces",serif}
+
+  /* phone */
+  .phone{width:372px;background:#11181d;border-radius:44px;padding:11px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);position:relative}
+  .screen{background:var(--paper);border-radius:34px;overflow:hidden;height:780px;display:flex;flex-direction:column;position:relative}
+  .screen::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:34px;box-shadow:inset 0 0 0 1px rgba(27,42,49,.12)}
+  .statusbar{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-family:"Courier Prime",monospace;font-size:12px;font-weight:700;color:var(--ink);flex:none}
+  .statusbar .ico{display:flex;gap:5px;align-items:center}
+  .statusbar .ico span{width:15px;height:9px;border:1.4px solid var(--ink);border-radius:2px;display:inline-block}
+  .statusbar .ico .b{width:3px;height:9px;background:var(--ink);border-radius:1px}
+
+  .appbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 12px;flex:none;border-bottom:1.5px solid var(--ink)}
+  .appbar .brand{display:flex;align-items:center;gap:9px}
+  .appbar .brand .seal{width:26px;height:26px;color:var(--ink)}
+  .appbar .brand .w{font-family:"Fraunces",serif;font-weight:900;font-size:17px}
+  .appbar .brand .w b{color:var(--buoy);font-weight:900}
+  .iconbtn{width:38px;height:38px;border:1.5px solid var(--ink);background:var(--paper-2);display:grid;place-items:center;color:var(--navy)}
+  .iconbtn svg{width:21px;height:21px}
+  .backbtn{font-family:"Courier Prime",monospace;font-weight:700;font-size:13px;color:var(--ink);display:flex;align-items:center;gap:7px}
+
+  .scroll{flex:1;overflow:hidden;padding:0 18px}
+
+  .titleblock{padding:16px 0 14px}
+  .titleblock .k{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.18em;font-size:10.5px;color:var(--buoy);font-weight:700}
+  .titleblock h2{font-family:"Fraunces",serif;font-weight:900;font-size:30px;letter-spacing:-.01em;margin-top:3px}
+  .ledger{display:flex;gap:8px;margin-top:12px}
+  .ledger .stat{flex:1;border:1.5px solid var(--ink);background:var(--paper-2);padding:9px 6px;text-align:center}
+  .ledger .stat b{font-family:"Fraunces",serif;font-weight:900;font-size:21px;display:block;line-height:1}
+  .ledger .stat span{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:9px;color:var(--ink-soft);display:block;margin-top:4px}
+
+  .grouphdr{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+  .grouphdr .ln{flex:1;height:1.5px;background:var(--rule)}
+  .grouphdr .lab{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:700;color:var(--ink-soft)}
+
+  .entry{position:relative;display:flex;gap:12px;background:var(--paper-2);border:1.5px solid var(--ink);padding:12px;margin-bottom:12px}
+  .entry .thumb{width:74px;height:60px;flex:none;border:1.5px solid var(--ink);background:var(--paper);display:grid;place-items:center;color:var(--ink);position:relative;overflow:hidden}
+  .entry .thumb svg{width:88px;height:auto}
+  .entry .info{flex:1;min-width:0}
+  .entry .sp{font-family:"Fraunces",serif;font-weight:700;font-size:17px;line-height:1.1}
+  .entry .meta{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;color:var(--ink-soft);margin-top:3px}
+  .cond{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+  .cond .c{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--rule);padding:3px 7px;font-family:"Courier Prime",monospace;font-size:9px;font-weight:700;letter-spacing:.04em;color:var(--ink-soft)}
+  .cond .c svg{width:11px;height:11px;color:var(--teal)}
+  .cond .c.hot{color:var(--buoy);border-color:var(--buoy)}
+  .entry .len{position:absolute;top:10px;right:12px;font-family:"Fraunces",serif;font-weight:900;font-size:18px;color:var(--ink)}
+
+  .tabbar{flex:none;display:flex;border-top:1.5px solid var(--ink);background:var(--paper-2)}
+  .tabbar a{flex:1;text-align:center;padding:10px 0 12px;color:var(--ink-soft);text-decoration:none}
+  .tabbar a svg{width:23px;height:23px;display:block;margin:0 auto 4px}
+  .tabbar a span{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.06em;font-size:9px;font-weight:700}
+  .tabbar a.on{color:var(--buoy)}
+
+  /* catch detail */
+  .specimen{margin:14px 0;border:1.5px solid var(--ink);background:linear-gradient(180deg,var(--paper-2),var(--paper-deep));padding:16px;position:relative}
+  .specimen .c{position:absolute;width:11px;height:11px;border:1.5px solid var(--ink)}
+  .specimen .c.tl{top:6px;left:6px;border-right:0;border-bottom:0}.specimen .c.tr{top:6px;right:6px;border-left:0;border-bottom:0}
+  .specimen .c.bl{bottom:6px;left:6px;border-right:0;border-top:0}.specimen .c.br{bottom:6px;right:6px;border-left:0;border-top:0}
+  .specimen svg.big{width:100%;color:var(--ink)}
+  .specimen .cap{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.14em;font-size:9px;color:var(--ink-soft);text-align:center;margin-top:6px}
+  .dtitle{display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px}
+  .dtitle h2{font-family:"Fraunces",serif;font-weight:900;font-size:27px;line-height:1}
+  .dtitle .sci{font-family:"Courier Prime",monospace;font-size:10px;letter-spacing:.06em;color:var(--ink-soft);margin-top:4px;text-transform:none}
+  .confirm{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.1em;font-size:9px;font-weight:700;color:var(--teal);border:1.5px solid var(--teal);padding:4px 8px;transform:rotate(5deg)}
+  .dledger{display:flex;gap:8px;margin-top:16px}
+  .dledger .s{flex:1;border:1.5px solid var(--ink);background:var(--paper-2);padding:10px;text-align:center}
+  .dledger .s b{font-family:"Fraunces",serif;font-weight:900;font-size:20px;display:block;line-height:1}
+  .dledger .s span{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:8.5px;color:var(--ink-soft);display:block;margin-top:4px}
+  .panel{border:1.5px solid var(--ink);margin-top:16px}
+  .panel .ph{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:700;background:var(--ink);color:var(--paper);padding:7px 12px}
+  .panel .rows{padding:4px 12px}
+  .panel .r{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--rule)}
+  .panel .r:last-child{border-bottom:0}
+  .panel .r svg{width:18px;height:18px;color:var(--teal);flex:none}
+  .panel .r .lab{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.06em;font-size:10px;color:var(--ink-soft);flex:1}
+  .panel .r .val{font-family:"Fraunces",serif;font-weight:700;font-size:15px}
+  .regnote{display:flex;gap:10px;align-items:center;border:1.5px dashed var(--buoy);background:rgba(178,58,43,.05);padding:11px 12px;margin-top:16px;margin-bottom:6px}
+  .regnote svg{width:20px;height:20px;color:var(--buoy);flex:none}
+  .regnote .t{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.05em;font-size:9.5px;font-weight:700;color:var(--ink)}
+  .regnote .t span{color:var(--buoy)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="7" stroke="currentColor" stroke-width="1" opacity="0.22"/></pattern>
+  <symbol id="fish" viewBox="0 0 480 280">
+    <path d="M64,150 C84,116 150,96 232,96 C300,96 348,108 372,128 L372,172 C348,192 300,204 232,204 C150,204 82,184 64,150 Z" fill="url(#hatch)"/>
+    <path d="M66,150 C86,116 150,96 232,96 C300,96 348,108 372,128" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M66,150 C84,180 150,204 232,204 C300,204 348,192 372,164" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M372,128 L470,94 L432,150 L470,206 L372,164" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M150,99 C176,72 214,70 250,84 C290,72 330,80 346,110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M250,202 C266,222 300,224 318,210" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M150,152 C170,176 180,190 174,202 C160,196 150,176 150,152 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M120,104 C110,138 114,168 132,196" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M62,150 C56,150 56,156 64,158" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="98" cy="138" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="98" cy="138" r="3.4" fill="currentColor"/>
+    <path d="M134,150 C220,140 300,146 366,150" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 6" stroke-linecap="round"/>
+    <circle cx="352" cy="150" r="11" fill="currentColor"/>
+  </symbol>
+  <symbol id="ic-scan" viewBox="0 0 48 48"><path d="M6 16V9a3 3 0 0 1 3-3h7M42 16V9a3 3 0 0 0-3-3h-7M6 32v7a3 3 0 0 0 3 3h7M42 32v7a3 3 0 0 1-3 3h-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
+  <symbol id="ic-anchor" viewBox="0 0 48 48"><circle cx="24" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="2.6"/><line x1="24" y1="13" x2="24" y2="40" stroke="currentColor" stroke-width="2.6"/><line x1="16" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="2.6"/><path d="M9 27c0 9 7 14 15 14s15-5 15-14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 48 48"><path d="M24 5c-8 0-13 6-13 14 0 9 13 24 13 24s13-15 13-24c0-8-5-14-13-14Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><circle cx="24" cy="19" r="5" fill="none" stroke="currentColor" stroke-width="2.6"/></symbol>
+  <symbol id="ic-tide" viewBox="0 0 48 48"><path d="M4 30c4-1 6-6 10-6s6 5 10 5 6-5 10-5 6 4 10 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 6v12m0-12l-5 5m5-5l5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-baro" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="24" r="2.6" fill="currentColor"/><path d="M24 24l9-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="ic-moon" viewBox="0 0 48 48"><path d="M30 6a18 18 0 1 0 12 30A14 14 0 0 1 30 6Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-temp" viewBox="0 0 48 48"><path d="M20 26V11a4 4 0 0 1 8 0v15a8 8 0 1 1-8 0Z" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="33" r="3" fill="currentColor"/></symbol>
+  <symbol id="ic-wheel" viewBox="0 0 48 48"><circle cx="24" cy="24" r="10" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="24" r="3.5" fill="none" stroke="currentColor" stroke-width="2.4"/><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="24" y1="6" x2="24" y2="13"/><line x1="24" y1="35" x2="24" y2="42"/><line x1="6" y1="24" x2="13" y2="24"/><line x1="35" y1="24" x2="42" y2="24"/></g></symbol>
+  <symbol id="ic-book" viewBox="0 0 48 48"><path d="M8 8h12a4 4 0 0 1 4 4v28a4 4 0 0 0-4-4H8Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M40 8H28a4 4 0 0 0-4 4v28a4 4 0 0 1 4-4h12Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-flag" viewBox="0 0 48 48"><line x1="12" y1="6" x2="12" y2="42" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M12 8h22l-5 7 5 7H12Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<div class="stage">
+  <div class="stage-h">
+    <div class="k">Waterlogged · App preview v1</div>
+    <h1>The system, applied</h1>
+  </div>
+  <div class="phones">
+
+    <!-- ===== SCREEN 1: THE LOG ===== -->
+    <div class="framewrap">
+      <div class="phone"><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="ico"><svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 10h2M5 8h2M9 5h2M13 2h2" stroke="#1b2a31" stroke-width="2.2" stroke-linecap="round"/></svg><span></span><span class="b"></span></span></div>
+        <div class="appbar">
+          <div class="brand"><svg class="seal" viewBox="0 0 100 100"><use href="#seal-mini"/></svg><span class="w">Water<b>logged</b></span></div>
+          <span class="iconbtn"><svg viewBox="0 0 48 48"><use href="#ic-scan"/></svg></span>
+        </div>
+        <div class="scroll">
+          <div class="titleblock">
+            <div class="k">Ship's log · 2026 season</div>
+            <h2>The Log</h2>
+            <div class="ledger">
+              <div class="stat"><b>127</b><span>Catches</span></div>
+              <div class="stat"><b>14</b><span>Species</span></div>
+              <div class="stat"><b>38</b><span>Trips</span></div>
+            </div>
+          </div>
+
+          <div class="grouphdr"><span class="lab">Sat · May 28 · Maximo Pt</span><span class="ln"></span></div>
+
+          <div class="entry">
+            <span class="len">26″</span>
+            <div class="thumb"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div>
+            <div class="info">
+              <div class="sp">Redfish</div>
+              <div class="meta">Red drum · cut mullet</div>
+              <div class="cond">
+                <span class="c hot"><svg viewBox="0 0 48 48"><use href="#ic-tide"/></svg>Falling</span>
+                <span class="c"><svg viewBox="0 0 48 48"><use href="#ic-temp"/></svg>74°</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="entry">
+            <span class="len">31″</span>
+            <div class="thumb"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div>
+            <div class="info">
+              <div class="sp">Snook</div>
+              <div class="meta">Common snook · live pin</div>
+              <div class="cond">
+                <span class="c hot"><svg viewBox="0 0 48 48"><use href="#ic-tide"/></svg>Falling</span>
+                <span class="c"><svg viewBox="0 0 48 48"><use href="#ic-moon"/></svg>Waning</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grouphdr"><span class="lab">Thu · May 24 · Fort De Soto</span><span class="ln"></span></div>
+
+          <div class="entry">
+            <span class="len">18″</span>
+            <div class="thumb"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div>
+            <div class="info">
+              <div class="sp">Spotted Seatrout</div>
+              <div class="meta">Grass flat · soft plastic</div>
+              <div class="cond">
+                <span class="c"><svg viewBox="0 0 48 48"><use href="#ic-tide"/></svg>Incoming</span>
+                <span class="c"><svg viewBox="0 0 48 48"><use href="#ic-temp"/></svg>72°</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tabbar">
+          <a class="on" href="#"><svg viewBox="0 0 48 48"><use href="#ic-book"/></svg><span>Log</span></a>
+          <a href="#"><svg viewBox="0 0 48 48"><use href="#ic-pin"/></svg><span>Map</span></a>
+          <a href="#"><svg viewBox="0 0 48 48"><use href="#ic-baro"/></svg><span>Forecast</span></a>
+          <a href="#"><svg viewBox="0 0 48 48"><use href="#ic-wheel"/></svg><span>Captain</span></a>
+        </div>
+      </div></div>
+      <div class="cap">Screen 01 · The Log (home)</div>
+    </div>
+
+    <!-- ===== SCREEN 2: CATCH DETAIL ===== -->
+    <div class="framewrap">
+      <div class="phone"><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="ico"><svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 10h2M5 8h2M9 5h2M13 2h2" stroke="#1b2a31" stroke-width="2.2" stroke-linecap="round"/></svg><span></span><span class="b"></span></span></div>
+        <div class="appbar">
+          <span class="backbtn">‹ The Log</span>
+          <span class="iconbtn"><svg viewBox="0 0 48 48"><use href="#ic-flag"/></svg></span>
+        </div>
+        <div class="scroll">
+          <div class="specimen">
+            <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+            <svg class="big" viewBox="0 0 480 280"><use href="#fish"/></svg>
+            <div class="cap">Plate · <span style="color:var(--buoy)">Sciaenops ocellatus</span> · caught 06:14, falling tide</div>
+          </div>
+          <div class="dtitle">
+            <div><h2>Redfish</h2><div class="sci">Red drum · confirmed by you</div></div>
+            <span class="confirm">Confirmed</span>
+          </div>
+          <div class="dledger">
+            <div class="s"><b>26″</b><span>Length</span></div>
+            <div class="s"><b>6.2</b><span>Lb (est)</span></div>
+            <div class="s"><b>06:14</b><span>Caught</span></div>
+          </div>
+          <div class="panel">
+            <div class="ph">Conditions you caught in</div>
+            <div class="rows">
+              <div class="r"><svg viewBox="0 0 48 48"><use href="#ic-tide"/></svg><span class="lab">Tide</span><span class="val">Falling · 1.2 ft</span></div>
+              <div class="r"><svg viewBox="0 0 48 48"><use href="#ic-temp"/></svg><span class="lab">Water temp</span><span class="val">74°F</span></div>
+              <div class="r"><svg viewBox="0 0 48 48"><use href="#ic-baro"/></svg><span class="lab">Pressure</span><span class="val">30.1 in, falling</span></div>
+              <div class="r"><svg viewBox="0 0 48 48"><use href="#ic-moon"/></svg><span class="lab">Moon</span><span class="val">Waning gibbous</span></div>
+            </div>
+          </div>
+          <div class="regnote">
+            <svg viewBox="0 0 48 48"><use href="#ic-flag"/></svg>
+            <div class="t">FWC · Red drum slot <span>18–27″</span> · 1 per harvester · in slot, in season</div>
+          </div>
+        </div>
+        <div class="tabbar">
+          <a class="on" href="#"><svg viewBox="0 0 48 48"><use href="#ic-book"/></svg><span>Log</span></a>
+          <a href="#"><svg viewBox="0 0 48 48"><use href="#ic-pin"/></svg><span>Map</span></a>
+          <a href="#"><svg viewBox="0 0 48 48"><use href="#ic-baro"/></svg><span>Forecast</span></a>
+          <a href="#"><svg viewBox="0 0 48 48"><use href="#ic-wheel"/></svg><span>Captain</span></a>
+        </div>
+      </div></div>
+      <div class="cap">Screen 02 · Catch detail</div>
+    </div>
+
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="seal-mini" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M30,52 C36,44 46,41 54,45 C60,42 66,44 70,50 C66,54 60,54 54,52 C46,56 36,56 30,52 Z" fill="currentColor"/>
+    <path d="M70,50 L82,44 L76,52 L82,58 L70,52" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </symbol>
+</defs></svg>
+
+</body>
+</html>

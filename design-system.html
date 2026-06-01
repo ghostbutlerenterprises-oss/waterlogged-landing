@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Waterlogged — Design System (Field Manual v1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f1e7cf; --paper-2:#ece0c2; --paper-deep:#e6d8b6;
+    --ink:#1b2a31; --ink-soft:#3a4d55;
+    --navy:#1f3b49; --chart-blue:#2f5566;
+    --buoy:#b23a2b; --brass:#b9852f; --brass-lt:#d3a04a; --teal:#4f6f63;
+    --rule:rgba(27,42,49,.28); --rule-soft:rgba(27,42,49,.14);
+    --sp:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Work Sans",sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");opacity:.06;mix-blend-mode:multiply}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  .mono{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.14em}
+  .serif{font-family:"Fraunces",serif}
+
+  header.doc{border-bottom:2px solid var(--ink);background:var(--navy);color:var(--paper)}
+  header.doc .wrap{padding:40px 28px 34px;display:flex;gap:18px;align-items:center}
+  header.doc .seal{width:62px;height:62px;flex:none;color:var(--paper)}
+  header.doc h1{font-family:"Fraunces",serif;font-weight:900;font-size:34px;letter-spacing:-.01em;line-height:1.05}
+  header.doc .tag{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.16em;
+    font-size:11.5px;color:var(--brass-lt);margin-top:7px}
+
+  section{padding:46px 0;border-bottom:1.5px solid var(--rule)}
+  .sec-no{font-family:"Courier Prime",monospace;letter-spacing:.18em;font-size:11.5px;color:var(--buoy);text-transform:uppercase}
+  h2.sec{font-family:"Fraunces",serif;font-weight:900;font-size:28px;letter-spacing:-.015em;margin:8px 0 4px}
+  .sec-note{color:var(--ink-soft);max-width:62ch;margin-top:6px}
+  .grid{display:grid;gap:16px;margin-top:26px}
+
+  /* palette */
+  .swatches{grid-template-columns:repeat(4,1fr)}
+  .sw{border:1.5px solid var(--ink);background:var(--paper-2)}
+  .sw .chip{height:78px;border-bottom:1.5px solid var(--ink)}
+  .sw .meta{padding:10px 12px}
+  .sw .nm{font-family:"Courier Prime",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .sw .hex{font-family:"Courier Prime",monospace;font-size:11px;color:var(--ink-soft);margin-top:2px}
+  .sw .use{font-size:12px;color:var(--ink-soft);margin-top:6px;line-height:1.4}
+
+  /* type */
+  .typerow{border-left:3px solid var(--brass);padding:4px 0 4px 18px;margin-bottom:22px}
+  .typerow .lab{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--ink-soft);margin-bottom:6px}
+  .d1{font-family:"Fraunces",serif;font-weight:900;font-size:54px;line-height:1;letter-spacing:-.02em}
+  .d1 em{font-style:italic;font-weight:500;color:var(--buoy)}
+  .d2{font-family:"Fraunces",serif;font-weight:900;font-size:34px;line-height:1.05;letter-spacing:-.015em}
+  .d3{font-family:"Fraunces",serif;font-weight:700;font-size:22px}
+  .body-eg{font-size:17px;color:var(--ink-soft);max-width:60ch}
+  .lab-eg{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.16em;font-size:13px;color:var(--buoy);font-weight:700}
+
+  /* components */
+  .demo{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:24px}
+  .stamp-btn{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-weight:700;
+    font-size:13px;color:var(--paper);background:var(--ink);padding:13px 22px;border:1.5px solid var(--ink);cursor:pointer}
+  .stamp-btn.buoy{background:var(--buoy);box-shadow:4px 4px 0 var(--ink)}
+  .stamp-btn.ghost{background:transparent;color:var(--ink)}
+  .stamp-btn.link{background:none;border:0;border-bottom:2px solid var(--brass);padding:0 0 3px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip-t{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.06em;font-size:11.5px;font-weight:700;
+    padding:11px 16px;border:1.5px dashed var(--ink);color:var(--ink-soft);cursor:pointer}
+  .chip-t.on{border-style:solid;background:var(--ink);color:var(--paper)}
+  .plate-demo{position:relative;border:1.5px solid var(--ink);background:linear-gradient(180deg,var(--paper-2),var(--paper-deep));padding:18px;width:260px}
+  .plate-demo .c{position:absolute;width:11px;height:11px;border:1.5px solid var(--ink)}
+  .plate-demo .c.tl{top:6px;left:6px;border-right:0;border-bottom:0}
+  .plate-demo .c.br{bottom:6px;right:6px;border-left:0;border-top:0}
+  .plate-demo .cap{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;color:var(--ink-soft);text-align:center;margin-top:6px}
+  .logcard{position:relative;background:var(--paper-2);border:1.5px solid var(--ink);padding:24px 22px;width:300px}
+  .logcard .no{position:absolute;top:-12px;left:18px;background:var(--ink);color:var(--paper);font-family:"Courier Prime",monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;padding:3px 9px}
+  .logcard h4{font-family:"Fraunces",serif;font-weight:700;font-size:19px}
+  .logcard p{color:var(--ink-soft);font-size:14px;margin-top:6px}
+  .field-demo{max-width:320px}
+  .field-demo .fl{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700;color:var(--ink-soft);display:block;margin-bottom:8px}
+  .field-demo input{width:100%;font-family:"Work Sans",sans-serif;font-size:16px;background:transparent;border:0;border-bottom:2px solid var(--ink);padding:8px 2px}
+  .field-demo input:focus{outline:0;border-bottom-color:var(--buoy)}
+
+  /* art library */
+  .art{grid-template-columns:repeat(4,1fr)}
+  .art .cell{border:1.5px solid var(--rule);background:var(--paper-2);padding:20px;text-align:center}
+  .art .cell svg{width:100%;height:84px;color:var(--ink)}
+  .art .cell .nm{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;color:var(--ink-soft);margin-top:12px}
+  .icons{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}
+  .icons .ic{width:64px;height:64px;border:1.5px solid var(--rule);background:var(--paper-2);display:grid;place-items:center;color:var(--navy)}
+  .icons .ic svg{width:34px;height:34px}
+
+  /* voice */
+  .voice{grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--ink)}
+  .voice .col{padding:20px 22px}
+  .voice .col.no{background:var(--paper-2);border-right:1.5px solid var(--ink)}
+  .voice .h{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700;margin-bottom:12px}
+  .voice .h.bad{color:var(--ink-soft)} .voice .h.good{color:var(--buoy)}
+  .voice ul{list-style:none} .voice li{padding:6px 0;font-size:14.5px;border-bottom:1px dashed var(--rule-soft)}
+  .voice li::before{content:"— ";color:var(--brass)}
+
+  /* tokens */
+  pre{font-family:"Courier Prime",monospace;font-size:12.5px;line-height:1.7;background:var(--navy);color:#dfe7d8;
+    padding:22px;border:1.5px solid var(--ink);overflow:auto;margin-top:22px}
+  pre .c{color:var(--brass-lt)}
+
+  footer.doc{background:var(--ink);color:#bcae8c;font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+  footer.doc .wrap{padding:26px 28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media(max-width:760px){.swatches,.art{grid-template-columns:1fr 1fr}.voice{grid-template-columns:1fr}.voice .col.no{border-right:0;border-bottom:1.5px solid var(--ink)}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="7" stroke="currentColor" stroke-width="1" opacity="0.25"/></pattern>
+  <symbol id="fish" viewBox="0 0 480 280">
+    <path d="M64,150 C84,116 150,96 232,96 C300,96 348,108 372,128 L372,172 C348,192 300,204 232,204 C150,204 82,184 64,150 Z" fill="url(#hatch)"/>
+    <path d="M66,150 C86,116 150,96 232,96 C300,96 348,108 372,128" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M66,150 C84,180 150,204 232,204 C300,204 348,192 372,164" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M372,128 L470,94 L432,150 L470,206 L372,164" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M150,99 C176,72 214,70 250,84 C290,72 330,80 346,110" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M250,202 C266,222 300,224 318,210" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M150,152 C170,176 180,190 174,202 C160,196 150,176 150,152 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M120,104 C110,138 114,168 132,196" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M62,150 C56,150 56,156 64,158" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="98" cy="138" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="98" cy="138" r="3.4" fill="currentColor"/>
+    <path d="M134,150 C220,140 300,146 366,150" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 6" stroke-linecap="round"/>
+    <circle cx="352" cy="150" r="11" fill="currentColor"/><circle cx="352" cy="150" r="15" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  </symbol>
+  <symbol id="compass" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" stroke-width="1"/>
+    <path d="M100,100 L94,52 L100,12 L106,52 Z" fill="currentColor"/><path d="M100,100 L106,148 L100,188 L94,148 Z" fill="currentColor"/>
+    <path d="M100,100 L148,94 L188,100 L148,106 Z" fill="currentColor"/><path d="M100,100 L52,106 L12,100 L52,94 Z" fill="currentColor"/>
+    <path d="M100,100 L128,72 L150,50 L120,80 Z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M100,100 L72,128 L50,150 L80,120 Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M100,100 L128,128 L150,150 L120,120 Z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M100,100 L72,72 L50,50 L80,80 Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="100" cy="100" r="6" fill="currentColor"/>
+  </symbol>
+  <symbol id="seal" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="1"/>
+    <path d="M30,52 C36,44 46,41 54,45 C60,42 66,44 70,50 C66,54 60,54 54,52 C46,56 36,56 30,52 Z" fill="currentColor"/>
+    <path d="M70,50 L82,44 L76,52 L82,58 L70,52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="40" cy="49" r="1.8" fill="#f1e7cf"/>
+  </symbol>
+  <symbol id="ic-cam" viewBox="0 0 64 48"><rect x="4" y="12" width="48" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 12l4-6h12l4 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="28" cy="27" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M52 18h8v22a2 2 0 0 1-2 2h-6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="ic-baro" viewBox="0 0 64 48"><circle cx="32" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="24" r="3" fill="currentColor"/><path d="M32 24L44 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-wheel" viewBox="0 0 64 48"><circle cx="32" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="24" r="4" fill="none" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="32" y1="5" x2="32" y2="13"/><line x1="32" y1="35" x2="32" y2="43"/><line x1="13" y1="24" x2="21" y2="24"/><line x1="43" y1="24" x2="51" y2="24"/></g></symbol>
+  <symbol id="ic-anchor" viewBox="0 0 48 48"><circle cx="24" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="24" y1="13" x2="24" y2="40" stroke="currentColor" stroke-width="2.4"/><line x1="16" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="2.4"/><path d="M9 27c0 9 7 14 15 14s15-5 15-14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M9 27l-4 2 4 4M39 27l4 2-4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 48 48"><path d="M24 5c-8 0-13 6-13 14 0 9 13 24 13 24s13-15 13-24c0-8-5-14-13-14Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="24" cy="19" r="5" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
+  <symbol id="ic-tide" viewBox="0 0 48 48"><path d="M4 30c4-1 6-6 10-6s6 5 10 5 6-5 10-5 6 4 10 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M4 38c4-1 6-6 10-6s6 5 10 5 6-5 10-5 6 4 10 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/><path d="M24 6v12m0-12l-5 5m5-5l5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-ruler" viewBox="0 0 48 48"><rect x="6" y="16" width="36" height="16" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.2"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="14" y1="16" x2="14" y2="24"/><line x1="22" y1="16" x2="22" y2="26"/><line x1="30" y1="16" x2="30" y2="24"/><line x1="38" y1="16" x2="38" y2="26"/></g></symbol>
+</defs></svg>
+
+<header class="doc">
+  <div class="wrap">
+    <svg class="seal" viewBox="0 0 100 100"><use href="#seal"/></svg>
+    <div>
+      <h1>Waterlogged — Design System</h1>
+      <div class="tag">Field manual v1 · retro-nautical · est. Tampa Bay</div>
+    </div>
+  </div>
+</header>
+
+<section><div class="wrap">
+  <div class="sec-no">01 — Foundations</div>
+  <h2 class="sec">Palette</h2>
+  <p class="sec-note">An aged-chart palette: cream paper, ink-navy linework, one hot accent (buoy red) and a brass highlight. Use ink for type and strokes, buoy for primary action and emphasis, brass sparingly for highlights and tags. Color comes from ink and illustration, never from gradients.</p>
+  <div class="grid swatches">
+    <div class="sw"><div class="chip" style="background:#f1e7cf"></div><div class="meta"><div class="nm">--paper</div><div class="hex">#F1E7CF</div><div class="use">App + page background</div></div></div>
+    <div class="sw"><div class="chip" style="background:#ece0c2"></div><div class="meta"><div class="nm">--paper-2</div><div class="hex">#ECE0C2</div><div class="use">Cards, panels, raised surfaces</div></div></div>
+    <div class="sw"><div class="chip" style="background:#1b2a31"></div><div class="meta"><div class="nm">--ink</div><div class="hex">#1B2A31</div><div class="use">Type, strokes, borders</div></div></div>
+    <div class="sw"><div class="chip" style="background:#1f3b49"></div><div class="meta"><div class="nm">--navy</div><div class="hex">#1F3B49</div><div class="use">Dark bands, headers, legends</div></div></div>
+    <div class="sw"><div class="chip" style="background:#b23a2b"></div><div class="meta"><div class="nm">--buoy</div><div class="hex">#B23A2B</div><div class="use">Primary action, emphasis</div></div></div>
+    <div class="sw"><div class="chip" style="background:#b9852f"></div><div class="meta"><div class="nm">--brass</div><div class="hex">#B9852F</div><div class="use">Highlights, tags, pins</div></div></div>
+    <div class="sw"><div class="chip" style="background:#4f6f63"></div><div class="meta"><div class="nm">--teal</div><div class="hex">#4F6F63</div><div class="use">Secondary / muted accent</div></div></div>
+    <div class="sw"><div class="chip" style="background:#3a4d55"></div><div class="meta"><div class="nm">--ink-soft</div><div class="hex">#3A4D55</div><div class="use">Body copy, captions</div></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-no">02 — Foundations</div>
+  <h2 class="sec">Typography</h2>
+  <p class="sec-note">Three voices. <b>Fraunces</b> (a wonky old-style serif) carries every headline and number — it's the single biggest reason this doesn't read generic. <b>Work Sans</b> keeps body copy quiet and legible. <b>Courier Prime</b> (typewriter) handles every label, tag, stat, and button — it reads as chart annotation and logbook entries.</p>
+  <div style="margin-top:26px">
+    <div class="typerow"><div class="lab">Display / Fraunces 900 — H1, hero, screen titles</div><div class="d1">The saltwater <em>log.</em></div></div>
+    <div class="typerow"><div class="lab">Display / Fraunces 900 — H2, section heads</div><div class="d2">Two seasons, reconstructed.</div></div>
+    <div class="typerow"><div class="lab">Subhead / Fraunces 700 — card + list titles, species names</div><div class="d3">Redfish (Red Drum)</div></div>
+    <div class="typerow"><div class="lab">Body / Work Sans 400 — paragraphs</div><div class="body-eg">Point Waterlogged at your camera roll and it reconstructs your whole fishing history — every trip, species, and spot, with the conditions you caught in.</div></div>
+    <div class="typerow"><div class="lab">Label / Courier Prime 700 — kickers, stats, buttons, captions</div><div class="lab-eg">Inshore &amp; surf · falling tide · 74°F</div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-no">03 — Components</div>
+  <h2 class="sec">Buttons &amp; controls</h2>
+  <p class="sec-note">Hard edges, 1.5px ink borders, and a hard offset shadow instead of soft blur — everything reads like a stamped ticket or chart inset. Toggles are rubber-stamp chips: dashed when off, inked solid when on.</p>
+  <div class="demo">
+    <button class="stamp-btn buoy">Claim early access</button>
+    <button class="stamp-btn">Join the log</button>
+    <button class="stamp-btn ghost">Secondary</button>
+    <button class="stamp-btn link">Text link ↓</button>
+  </div>
+  <div class="demo"><div class="chips">
+    <span class="chip-t on">Camera-roll backfill</span>
+    <span class="chip-t">Bite forecasting</span>
+    <span class="chip-t">Captain's Log</span>
+  </div></div>
+  <div class="demo"><div class="field-demo"><label class="fl">Hailing email</label><input type="email" placeholder="you@example.com" /></div></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-no">04 — Components</div>
+  <h2 class="sec">Surfaces: plates &amp; log cards</h2>
+  <p class="sec-note">Two core containers. The <b>specimen plate</b> (corner ticks, ruled border) frames illustration and hero imagery. The <b>log card</b> (numbered tab, ink border) holds entries — catches, features, list rows.</p>
+  <div class="demo">
+    <div class="plate-demo">
+      <span class="c tl"></span><span class="c br"></span>
+      <svg viewBox="0 0 480 280" style="width:100%;color:var(--ink)"><use href="#fish"/></svg>
+      <div class="cap">Plate I · <span style="color:var(--buoy)">Sciaenops ocellatus</span></div>
+    </div>
+    <div class="logcard">
+      <span class="no">No. 01</span>
+      <h4>Camera-roll backfill</h4>
+      <p>Select your photos and Waterlogged reads the GPS and timestamp, identifies the species, and clusters them into trips.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-no">05 — Identity</div>
+  <h2 class="sec">Illustration &amp; iconography</h2>
+  <p class="sec-note">All art is ink line-work on paper — single-weight strokes, light cross-hatching for form, the look of an engraved field-guide plate. No filled silhouettes, no stock icon set. Species plates double as content (the catch) and decoration.</p>
+  <div class="grid art">
+    <div class="cell"><svg viewBox="0 0 480 280"><use href="#fish"/></svg><div class="nm">Specimen plate — red drum</div></div>
+    <div class="cell"><svg viewBox="0 0 200 200"><use href="#compass"/></svg><div class="nm">Compass rose</div></div>
+    <div class="cell"><svg viewBox="0 0 100 100"><use href="#seal"/></svg><div class="nm">Brand seal / mark</div></div>
+    <div class="cell"><svg viewBox="0 0 64 48"><use href="#ic-cam"/></svg><div class="nm">Backfill</div></div>
+  </div>
+  <div class="icons">
+    <span class="ic"><svg viewBox="0 0 64 48"><use href="#ic-cam"/></svg></span>
+    <span class="ic"><svg viewBox="0 0 64 48"><use href="#ic-baro"/></svg></span>
+    <span class="ic"><svg viewBox="0 0 64 48"><use href="#ic-wheel"/></svg></span>
+    <span class="ic"><svg viewBox="0 0 48 48"><use href="#ic-anchor"/></svg></span>
+    <span class="ic"><svg viewBox="0 0 48 48"><use href="#ic-pin"/></svg></span>
+    <span class="ic"><svg viewBox="0 0 48 48"><use href="#ic-tide"/></svg></span>
+    <span class="ic"><svg viewBox="0 0 48 48"><use href="#ic-ruler"/></svg></span>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-no">06 — Identity</div>
+  <h2 class="sec">Voice &amp; motifs</h2>
+  <p class="sec-note">Write like a guide's logbook, not a SaaS dashboard. Lean into nautical vernacular and concrete detail; keep labels in typewriter caps; sign things with coordinates and plate numbers.</p>
+  <div class="grid voice">
+    <div class="col no"><div class="h bad">Avoid (generic)</div><ul><li>“Sign up for updates”</li><li>“Submit”</li><li>“Your dashboard”</li><li>“Catch added successfully”</li><li>“Settings”</li></ul></div>
+    <div class="col"><div class="h good">Prefer (Waterlogged)</div><ul><li>“Make your entry in the log”</li><li>“Sign the log”</li><li>“The log”</li><li>“Logged. — entry recorded”</li><li>“Ship's papers”</li></ul></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-no">07 — Handoff</div>
+  <h2 class="sec">Tokens (drop into the app)</h2>
+  <p class="sec-note">Same CSS custom properties power the landing page and these mocks. Reuse them in the Expo app (as a theme object) so web and native stay identical.</p>
+  <pre><span class="c">/* :root design tokens — Waterlogged v1 */</span>
+--paper:#f1e7cf;  --paper-2:#ece0c2;  --paper-deep:#e6d8b6;
+--ink:#1b2a31;    --ink-soft:#3a4d55;
+--navy:#1f3b49;   --chart-blue:#2f5566;
+--buoy:#b23a2b;   --brass:#b9852f;     --brass-lt:#d3a04a;  --teal:#4f6f63;
+
+<span class="c">/* type */</span>
+display:  "Fraunces", Georgia, serif;        <span class="c">/* 900 / 700, optical */</span>
+body:     "Work Sans", system-ui, sans-serif;<span class="c">/* 400 / 500 */</span>
+label:    "Courier Prime", monospace;        <span class="c">/* 700, UPPERCASE, +0.12em */</span>
+
+<span class="c">/* rules: 1.5px ink borders · 4px hard offset shadow · no blur · no gradients-as-color */</span></pre>
+</div></section>
+
+<footer class="doc"><div class="wrap"><span>Waterlogged · Field Manual v1</span><span>St. Petersburg, FL · 27.77°N 82.64°W</span></div></footer>
+</body>
+</html>

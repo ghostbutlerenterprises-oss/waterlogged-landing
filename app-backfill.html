@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Waterlogged — Backfill (the first-run wow)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f1e7cf; --paper-2:#ece0c2; --paper-deep:#e6d8b6;
+    --ink:#1b2a31; --ink-soft:#3a4d55; --navy:#1f3b49;
+    --buoy:#b23a2b; --brass:#b9852f; --brass-lt:#d3a04a; --teal:#4f6f63;
+    --rule:rgba(27,42,49,.26);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Work Sans",sans-serif;color:var(--ink);background:var(--navy);min-height:100vh;padding:46px 20px;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+  .stage{max-width:920px;margin:0 auto;position:relative;z-index:1}
+  .stage-h{text-align:center;color:var(--paper);margin-bottom:36px}
+  .stage-h .k{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--brass-lt)}
+  .stage-h h1{font-family:"Fraunces",serif;font-weight:900;font-size:30px;margin-top:8px}
+  .phones{display:flex;gap:46px;justify-content:center;flex-wrap:wrap}
+  .framewrap{text-align:center}
+  .cap{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:#bcae8c;margin-top:18px}
+
+  .phone{width:372px;background:#11181d;border-radius:44px;padding:11px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+  .screen{background:var(--paper);border-radius:34px;overflow:hidden;height:780px;display:flex;flex-direction:column;position:relative}
+  .screen::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:34px;box-shadow:inset 0 0 0 1px rgba(27,42,49,.12)}
+  .statusbar{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-family:"Courier Prime",monospace;font-size:12px;font-weight:700;color:var(--ink);flex:none}
+  .statusbar .b{width:15px;height:9px;border:1.4px solid var(--ink);border-radius:2px;display:inline-block}
+  .appbar{display:flex;align-items:center;justify-content:space-between;padding:10px 18px 12px;flex:none;border-bottom:1.5px solid var(--ink)}
+  .appbar .brand{display:flex;align-items:center;gap:9px}
+  .appbar .brand .seal{width:26px;height:26px;color:var(--ink)}
+  .appbar .brand .w{font-family:"Fraunces",serif;font-weight:900;font-size:17px}
+  .appbar .brand .w b{color:var(--buoy)}
+  .appbar .skip{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:700;color:var(--ink-soft)}
+  .scroll{flex:1;overflow:hidden;padding:0 20px;display:flex;flex-direction:column}
+
+  .tb{padding:16px 0 6px}
+  .tb .k{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.18em;font-size:10.5px;color:var(--buoy);font-weight:700}
+  .tb h2{font-family:"Fraunces",serif;font-weight:900;font-size:28px;letter-spacing:-.01em;margin-top:3px}
+
+  /* sonar */
+  .sonar{width:208px;height:208px;margin:14px auto 6px;position:relative}
+  .sonar .rings{position:absolute;inset:0;color:var(--ink);opacity:.5}
+  .sonar .sector{position:absolute;inset:0;border-radius:50%;
+    background:conic-gradient(from -90deg, rgba(178,58,43,.22), rgba(178,58,43,0) 70deg);
+    animation:sweep 2.8s linear infinite;mask:radial-gradient(circle,#000 64%,transparent 65%)}
+  .sonar .line{position:absolute;left:50%;top:50%;width:96px;height:2px;background:var(--buoy);
+    transform-origin:0 50%;animation:sweep 2.8s linear infinite}
+  @keyframes sweep{to{transform:rotate(360deg)}}
+  .sonar .blip{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--ink)}
+  .sonar .blip.live{background:var(--buoy);animation:ping 2.8s ease-out infinite}
+  @keyframes ping{0%,40%{box-shadow:0 0 0 0 rgba(178,58,43,.5)}70%{box-shadow:0 0 0 8px rgba(178,58,43,0)}100%{box-shadow:0 0 0 0 rgba(178,58,43,0)}}
+  .sonar .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+  .sonar .ctr b{font-family:"Fraunces",serif;font-weight:900;font-size:30px;line-height:1}
+  .sonar .ctr span{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.1em;font-size:8.5px;color:var(--ink-soft);margin-top:3px}
+
+  .prog{margin:8px 0 4px}
+  .prog .bar{height:14px;border:1.5px solid var(--ink);background:var(--paper-2);position:relative;overflow:hidden}
+  .prog .fill{position:absolute;inset:0;width:68%;background:repeating-linear-gradient(135deg,var(--ink) 0 7px,#2c4049 7px 14px)}
+  .prog .lab{display:flex;justify-content:space-between;font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:9.5px;color:var(--ink-soft);margin-top:6px}
+
+  .ledger{display:flex;gap:8px;margin-top:14px}
+  .ledger .s{flex:1;border:1.5px solid var(--ink);background:var(--paper-2);padding:9px 4px;text-align:center}
+  .ledger .s b{font-family:"Fraunces",serif;font-weight:900;font-size:22px;display:block;line-height:1}
+  .ledger .s span{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.06em;font-size:8.5px;color:var(--ink-soft);display:block;margin-top:4px}
+
+  .status{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:10px;color:var(--ink-soft);text-align:center;margin:14px 0 8px}
+  .status .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal);margin-right:6px;animation:blink 1.1s steps(2) infinite;vertical-align:middle}
+  @keyframes blink{50%{opacity:.2}}
+
+  .streamh{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:9.5px;font-weight:700;color:var(--ink-soft);border-top:1.5px solid var(--rule);padding-top:10px;margin-top:2px}
+  .srow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--rule)}
+  .srow .th{width:42px;height:32px;flex:none;border:1.5px solid var(--ink);background:var(--paper-2);display:grid;place-items:center;color:var(--ink);overflow:hidden}
+  .srow .th svg{width:52px}
+  .srow .nm{flex:1;min-width:0}
+  .srow .nm b{font-family:"Fraunces",serif;font-weight:700;font-size:14px;display:block;line-height:1.1}
+  .srow .nm span{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.05em;font-size:8.5px;color:var(--ink-soft)}
+  .srow .ok{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:8.5px;font-weight:700;color:var(--teal);display:flex;align-items:center;gap:4px}
+  .srow .ok svg{width:12px;height:12px}
+
+  /* reveal */
+  .reveal{flex:1;display:flex;flex-direction:column;padding-top:6px}
+  .big{text-align:center;margin:6px 0 2px}
+  .big .n{font-family:"Fraunces",serif;font-weight:900;font-size:78px;line-height:.9;letter-spacing:-.03em}
+  .big .l{font-family:"Fraunces",serif;font-weight:600;font-style:italic;font-size:22px;color:var(--buoy);margin-top:-2px}
+  .big .sub{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.1em;font-size:10px;color:var(--ink-soft);margin-top:12px}
+  .tally{border:1.5px solid var(--ink);margin-top:16px}
+  .tally .h{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:700;background:var(--ink);color:var(--paper);padding:7px 12px}
+  .trow{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px dashed var(--rule)}
+  .trow:last-child{border-bottom:0}
+  .trow .th{width:40px;height:30px;flex:none;border:1.5px solid var(--ink);background:var(--paper-2);display:grid;place-items:center;color:var(--ink);overflow:hidden}
+  .trow .th svg{width:50px}
+  .trow .nm{flex:1;font-family:"Fraunces",serif;font-weight:700;font-size:15px}
+  .trow .ct{font-family:"Courier Prime",monospace;font-weight:700;font-size:13px;color:var(--ink)}
+  .trow .ct span{color:var(--ink-soft);font-size:9px}
+  .cta{margin-top:auto;padding:16px 0 10px}
+  .cta .btn{display:block;width:100%;text-align:center;font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.14em;font-weight:700;font-size:14px;color:var(--paper);background:var(--buoy);border:1.5px solid var(--ink);padding:15px;box-shadow:4px 4px 0 var(--ink)}
+  .cta .cap2{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.06em;font-size:9px;color:var(--ink-soft);text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="7" stroke="currentColor" stroke-width="1" opacity="0.22"/></pattern>
+  <symbol id="fish" viewBox="0 0 480 280">
+    <path d="M64,150 C84,116 150,96 232,96 C300,96 348,108 372,128 L372,172 C348,192 300,204 232,204 C150,204 82,184 64,150 Z" fill="url(#hatch)"/>
+    <path d="M66,150 C86,116 150,96 232,96 C300,96 348,108 372,128" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M66,150 C84,180 150,204 232,204 C300,204 348,192 372,164" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M372,128 L470,94 L432,150 L470,206 L372,164" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M150,99 C176,72 214,70 250,84 C290,72 330,80 346,110" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M150,152 C170,176 180,190 174,202 C160,196 150,176 150,152 Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+    <path d="M120,104 C110,138 114,168 132,196" fill="none" stroke="currentColor" stroke-width="2.2"/>
+    <circle cx="98" cy="138" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="98" cy="138" r="3.4" fill="currentColor"/>
+    <circle cx="352" cy="150" r="11" fill="currentColor"/>
+  </symbol>
+  <symbol id="seal-mini" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M30,52 C36,44 46,41 54,45 C60,42 66,44 70,50 C66,54 60,54 54,52 C46,56 36,56 30,52 Z" fill="currentColor"/>
+    <path d="M70,50 L82,44 L76,52 L82,58 L70,52" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="compass" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="100" cy="100" r="64" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="100" cy="100" r="32" fill="none" stroke="currentColor" stroke-width="1"/>
+    <g stroke="currentColor" stroke-width="1"><line x1="100" y1="5" x2="100" y2="195"/><line x1="5" y1="100" x2="195" y2="100"/><line x1="30" y1="30" x2="170" y2="170"/><line x1="170" y1="30" x2="30" y2="170"/></g>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<div class="stage">
+  <div class="stage-h">
+    <div class="k">Waterlogged · first-run backfill</div>
+    <h1>The wow moment</h1>
+  </div>
+  <div class="phones">
+
+    <!-- ===== SCREEN A: SCANNING ===== -->
+    <div class="framewrap">
+      <div class="phone"><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="b"></span></div>
+        <div class="appbar">
+          <div class="brand"><svg class="seal" viewBox="0 0 100 100"><use href="#seal-mini"/></svg><span class="w">Water<b>logged</b></span></div>
+          <span class="skip">Runs in background</span>
+        </div>
+        <div class="scroll">
+          <div class="tb"><div class="k">Backfill · step 2 of 3</div><h2>Reading your roll</h2></div>
+
+          <div class="sonar">
+            <svg class="rings" viewBox="0 0 200 200"><use href="#compass"/></svg>
+            <div class="sector"></div>
+            <div class="line"></div>
+            <span class="blip" style="left:64px;top:58px"></span>
+            <span class="blip live" style="left:140px;top:78px"></span>
+            <span class="blip" style="left:120px;top:140px"></span>
+            <span class="blip" style="left:70px;top:128px"></span>
+            <span class="blip live" style="left:150px;top:120px"></span>
+            <div class="ctr"><b>138</b><span>catches found</span></div>
+          </div>
+
+          <div class="prog">
+            <div class="bar"><div class="fill"></div></div>
+            <div class="lab"><span>Scanning camera roll</span><span>68% · 2,847 / 4,180</span></div>
+          </div>
+
+          <div class="ledger">
+            <div class="s"><b>2,847</b><span>Photos</span></div>
+            <div class="s"><b>138</b><span>Catches</span></div>
+            <div class="s"><b>14</b><span>Species</span></div>
+            <div class="s"><b>38</b><span>Trips</span></div>
+          </div>
+
+          <div class="status"><span class="dot"></span>Identifying species · pulling tide + water temp</div>
+
+          <div class="streamh">Just logged</div>
+          <div class="srow"><div class="th"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div><div class="nm"><b>Redfish</b><span>May 28 · Maximo Pt · falling tide</span></div><div class="ok"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Logged</div></div>
+          <div class="srow"><div class="th"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div><div class="nm"><b>Snook</b><span>May 28 · Maximo Pt · 74°F</span></div><div class="ok"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Logged</div></div>
+          <div class="srow"><div class="th"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div><div class="nm"><b>Spotted Seatrout</b><span>May 24 · Fort De Soto</span></div><div class="ok"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg>Logged</div></div>
+        </div>
+      </div></div>
+      <div class="cap">Screen 01 · Scanning the roll</div>
+    </div>
+
+    <!-- ===== SCREEN B: REVEAL ===== -->
+    <div class="framewrap">
+      <div class="phone"><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="b"></span></div>
+        <div class="appbar">
+          <div class="brand"><svg class="seal" viewBox="0 0 100 100"><use href="#seal-mini"/></svg><span class="w">Water<b>logged</b></span></div>
+          <span class="skip">Done</span>
+        </div>
+        <div class="scroll"><div class="reveal">
+          <div class="tb" style="text-align:center"><div class="k" style="color:var(--teal)">✓ Backfill complete</div></div>
+          <div class="big">
+            <div class="n">138</div>
+            <div class="l">catches reconstructed.</div>
+            <div class="sub">38 trips · 14 species · back to Mar 2023</div>
+          </div>
+          <div class="tally">
+            <div class="h">Your top species</div>
+            <div class="trow"><div class="th"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div><div class="nm">Spotted Seatrout</div><div class="ct">38 <span>logged</span></div></div>
+            <div class="trow"><div class="th"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div><div class="nm">Redfish</div><div class="ct">42 <span>logged</span></div></div>
+            <div class="trow"><div class="th"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div><div class="nm">Snook</div><div class="ct">31 <span>logged</span></div></div>
+            <div class="trow"><div class="th"><svg viewBox="0 0 480 280"><use href="#fish"/></svg></div><div class="nm">Sheepshead</div><div class="ct">14 <span>logged</span></div></div>
+          </div>
+          <div class="cta">
+            <span class="btn">Open your log →</span>
+            <div class="cap2">Two seasons, reconstructed in one tap</div>
+          </div>
+        </div></div>
+      </div></div>
+      <div class="cap">Screen 02 · The reveal</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
