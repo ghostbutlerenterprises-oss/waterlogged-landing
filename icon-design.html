@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Waterlogged — App Icon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{--paper:#f1e7cf;--ink:#1b2a31;--ink-soft:#3a4d55;--navy:#1f3b49;--buoy:#b23a2b;--brass:#b9852f;--brass-lt:#d3a04a;--teal:#4f6f63}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Work Sans",sans-serif;color:var(--paper);background:#16252c;min-height:100vh;padding:48px 22px;-webkit-font-smoothing:antialiased}
+  .stage{max-width:940px;margin:0 auto}
+  .stage-h{text-align:center;margin-bottom:40px}
+  .stage-h .k{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--brass-lt)}
+  .stage-h h1{font-family:"Fraunces",serif;font-weight:900;font-size:34px;margin-top:8px}
+  .stage-h p{color:#bcd0cf;max-width:54ch;margin:12px auto 0;font-size:15.5px}
+  .row{display:flex;gap:40px;justify-content:center;align-items:flex-end;flex-wrap:wrap;margin-bottom:46px}
+  .block{background:#1d3038;border:1.5px solid #2c454e;border-radius:14px;padding:30px 28px;margin-bottom:26px}
+  .block .lab{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--brass-lt);margin-bottom:22px;text-align:center}
+  .squircle{border-radius:22.4%;overflow:hidden;display:block;background:#214a52;box-shadow:0 14px 30px -10px rgba(0,0,0,.55)}
+  .squircle svg{display:block;width:100%;height:100%}
+  .hero{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .hero .squircle{width:248px;height:248px}
+  .hero .cap{font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;color:#9fb6b5}
+
+  .sizes{display:flex;gap:28px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+  .sizes .it{text-align:center}
+  .sizes .it .squircle{margin:0 auto}
+  .sizes .it span{display:block;font-family:"Courier Prime",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:9.5px;color:#9fb6b5;margin-top:10px}
+
+  /* home screen */
+  .phone{width:300px;background:#11181d;border-radius:42px;padding:10px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);margin:0 auto}
+  .hs{border-radius:33px;overflow:hidden;height:610px;position:relative;
+    background:linear-gradient(180deg,#21323a 0%,#3a4a47 48%,#9c6b3a 100%)}
+  .hs .clock{text-align:center;color:#fff;padding-top:30px}
+  .hs .clock b{display:block;font-family:"Work Sans";font-weight:500;font-size:52px;line-height:1;letter-spacing:.01em}
+  .hs .clock span{font-size:13px;opacity:.9}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 16px;padding:30px 22px 0}
+  .app{text-align:center}
+  .app .t{width:54px;height:54px;border-radius:24%;margin:0 auto;display:grid;place-items:center;box-shadow:0 4px 10px rgba(0,0,0,.25);overflow:hidden}
+  .app .t svg{width:100%;height:100%;display:block}
+  .app .l{display:block;font-size:10.5px;color:#fff;margin-top:5px;text-shadow:0 1px 2px rgba(0,0,0,.4);font-family:"Work Sans"}
+  .app.star .l{font-weight:600}
+  .dock{position:absolute;left:14px;right:14px;bottom:16px;height:84px;border-radius:30px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-around;padding:0 14px}
+  .dock .t{width:54px;height:54px;border-radius:24%;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+  .dock .t svg{width:100%;height:100%}
+  .tile{width:100%;height:100%;display:grid;place-items:center;color:#fff;font-family:"Work Sans";font-weight:600;font-size:20px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="appicon" viewBox="0 0 512 512">
+    <rect x="0" y="0" width="512" height="512" fill="#214a52"/>
+    <rect x="0" y="0" width="512" height="150" fill="#1b3e46"/>
+    <circle cx="256" cy="226" r="150" fill="#1d444c"/>
+    <circle cx="256" cy="226" r="150" fill="none" stroke="#e9a648" stroke-width="3" opacity="0.5"/>
+    <circle cx="256" cy="226" r="124" fill="#e2912f"/>
+    <g stroke="#eaa942" stroke-width="5" stroke-linecap="round" opacity="0.85">
+      <line x1="256" y1="40" x2="256" y2="66"/><line x1="150" y1="72" x2="164" y2="94"/><line x1="362" y1="72" x2="348" y2="94"/><line x1="80" y1="150" x2="102" y2="164"/><line x1="432" y1="150" x2="410" y2="164"/>
+    </g>
+    <rect x="0" y="346" width="512" height="166" fill="#15303a"/>
+    <rect x="0" y="346" width="512" height="4" fill="#4f6f63"/>
+    <g fill="#cf8a37" opacity="0.55"><rect x="226" y="362" width="60" height="6"/><rect x="214" y="380" width="84" height="6"/><rect x="232" y="398" width="48" height="6"/></g>
+    <g stroke="#d3a04a" stroke-width="3.2" stroke-linecap="round">
+      <line x1="256" y1="120" x2="72" y2="342"/><line x1="256" y1="120" x2="124" y2="342"/><line x1="256" y1="120" x2="176" y2="342"/><line x1="256" y1="120" x2="214" y2="342"/><line x1="256" y1="120" x2="298" y2="342"/><line x1="256" y1="120" x2="340" y2="342"/><line x1="256" y1="120" x2="392" y2="342"/><line x1="256" y1="120" x2="442" y2="342"/>
+    </g>
+    <path d="M28,352 Q256,330 484,352 L484,344 Q256,322 28,344 Z" fill="#11262f"/>
+    <polygon points="248,346 254,116 258,116 264,346" fill="#11262f"/>
+    <g transform="rotate(18 432 356)">
+      <path d="M330,304 L440,276 C404,312 404,326 442,360 L342,332 C352,324 350,314 330,304 Z" fill="#f1e7cf" stroke="#14232a" stroke-width="6.5" stroke-linejoin="round"/>
+      <path d="M104,196 C114,176 138,164 168,168 C216,176 262,200 300,234 C324,255 340,282 350,312 C336,328 316,338 292,340 C250,344 206,326 166,294 C136,270 116,236 104,196 Z" fill="#f1e7cf" stroke="#14232a" stroke-width="6.5" stroke-linejoin="round"/>
+      <path d="M168,168 C216,176 262,200 300,234 C320,252 334,273 344,296 C326,266 295,236 260,216 C224,196 192,182 168,178 Z" fill="#2f5566"/>
+      <path d="M180,178 C171,199 173,221 188,240" fill="none" stroke="#14232a" stroke-width="4.5" stroke-linecap="round"/>
+      <g fill="none" stroke="#14232a" stroke-width="2.4" opacity="0.5" stroke-linecap="round"><path d="M236,212 C256,228 274,242 286,264"/><path d="M264,208 C286,224 304,240 318,264"/><path d="M292,210 C313,226 330,244 343,268"/></g>
+      <path d="M198,208 C248,230 300,264 346,314" fill="none" stroke="#14232a" stroke-width="2.4" stroke-dasharray="3 9" opacity="0.7"/>
+      <path d="M196,238 C208,258 208,276 200,290 C186,276 180,256 184,238 Z" fill="#e6d8b6" stroke="#14232a" stroke-width="4"/>
+      <path d="M300,224 C332,234 356,258 372,292" fill="none" stroke="#14232a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="150" cy="194" r="12" fill="#f1e7cf" stroke="#14232a" stroke-width="4.5"/><circle cx="150" cy="194" r="5" fill="#14232a"/>
+      <path d="M104,196 C112,201 122,203 131,201" fill="none" stroke="#14232a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M110,186 C119,184 127,186 133,192" fill="none" stroke="#14232a" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <g fill="#f1e7cf"><circle cx="430" cy="340" r="7"/><circle cx="452" cy="326" r="5"/><circle cx="446" cy="356" r="4.5"/><circle cx="414" cy="322" r="4"/></g>
+  </symbol>
+</defs></svg>
+
+<div class="stage">
+  <div class="stage-h">
+    <div class="k">Waterlogged · app icon</div>
+    <h1>The silver king over the Skyway</h1>
+    <p>A leaping tarpon — Tampa Bay's iconic gamefish — arcing over the Sunshine Skyway Bridge at sunset. Built from the same flat, aged-chart system as the rest of the brand.</p>
+  </div>
+
+  <div class="block">
+    <div class="lab">Master · 1024px</div>
+    <div class="hero">
+      <span class="squircle"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></span>
+      <span class="cap">iOS squircle · full-bleed · no transparency</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="lab">Reads at every size</div>
+    <div class="sizes">
+      <div class="it"><span class="squircle" style="width:120px;height:120px"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></span><span>180 · @3x</span></div>
+      <div class="it"><span class="squircle" style="width:87px;height:87px"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></span><span>120 · @2x</span></div>
+      <div class="it"><span class="squircle" style="width:60px;height:60px"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></span><span>87 · settings</span></div>
+      <div class="it"><span class="squircle" style="width:44px;height:44px"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></span><span>60 · spotlight</span></div>
+      <div class="it"><span class="squircle" style="width:30px;height:30px"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></span><span>40 · notif</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="lab">On the home screen</div>
+    <div class="phone"><div class="hs">
+      <div class="clock"><b>9:41</b><span>Saturday, May 28</span></div>
+      <div class="grid">
+        <div class="app"><div class="t"><div class="tile" style="background:#3478f6">∿</div></div><span class="l">Tides</span></div>
+        <div class="app"><div class="t"><div class="tile" style="background:#34c759">◷</div></div><span class="l">Weather</span></div>
+        <div class="app"><div class="t"><div class="tile" style="background:#1c1c1e">◐</div></div><span class="l">Maps</span></div>
+        <div class="app"><div class="t"><div class="tile" style="background:#ff9500">✦</div></div><span class="l">Notes</span></div>
+        <div class="app star"><div class="t"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></div><span class="l">Waterlogged</span></div>
+        <div class="app"><div class="t"><div class="tile" style="background:#5856d6">◇</div></div><span class="l">Solunar</span></div>
+        <div class="app"><div class="t"><div class="tile" style="background:#ff2d55">♥</div></div><span class="l">Health</span></div>
+        <div class="app"><div class="t"><div class="tile" style="background:#30b0c7">⛅</div></div><span class="l">NOAA</span></div>
+      </div>
+      <div class="dock">
+        <div class="t"><div class="tile" style="background:#34c759">☎</div></div>
+        <div class="t"><div class="tile" style="background:#5ac8fa">✉</div></div>
+        <div class="t"><div class="tile" style="background:#007aff">◍</div></div>
+        <div class="t"><svg viewBox="0 0 512 512"><use href="#appicon"/></svg></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+</body>
+</html>
