@@ -1,95 +1,46 @@
-<svg width="1024" height="1024" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Waterlogged app icon: a leaping tarpon over the Sunshine Skyway Bridge at sunset">
-  <defs><clipPath id="sq"><rect x="0" y="0" width="512" height="512"/></clipPath></defs>
+<svg width="1024" height="1024" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Waterlogged app icon: a poling skiff silhouette backlit by a striated sunset, with a tailing redfish">
+  <defs>
+    <clipPath id="sq"><rect x="0" y="0" width="512" height="512"/></clipPath>
+    <clipPath id="sun"><circle cx="256" cy="300" r="150"/></clipPath>
+  </defs>
   <g clip-path="url(#sq)">
-    <rect x="0" y="0" width="512" height="512" fill="#b35d54"/>
-    <rect x="0" y="118" width="512" height="120" fill="#c66f45"/>
-    <rect x="0" y="238" width="512" height="108" fill="#dd8e3c"/>
-    <circle cx="256" cy="248" r="118" fill="#e79a36"/>
-    <circle cx="256" cy="248" r="86" fill="#efb34a"/>
-    <circle cx="256" cy="248" r="50" fill="#f6cf72"/>
-    <g stroke="#e9a23f" stroke-width="5" stroke-linecap="round" opacity="0.7">
-      <line x1="256" y1="74" x2="256" y2="98"/>
-      <line x1="150" y1="104" x2="164" y2="124"/>
-      <line x1="362" y1="104" x2="348" y2="124"/>
-      <line x1="96" y1="186" x2="118" y2="198"/>
-      <line x1="416" y1="186" x2="394" y2="198"/>
+    <rect x="0" y="0" width="512" height="512" fill="#c0683f"/>
+    <rect x="0" y="0" width="512" height="142" fill="#b15a52"/>
+    <rect x="0" y="250" width="512" height="82" fill="#d98a3a"/>
+    <circle cx="256" cy="300" r="150" fill="#f3d489"/>
+    <g clip-path="url(#sun)" stroke="#16222b" stroke-width="2.6" opacity="0.85">
+      <line x1="104" y1="200" x2="408" y2="200"/><line x1="104" y1="218" x2="408" y2="218"/><line x1="104" y1="234" x2="408" y2="234"/><line x1="104" y1="248" x2="408" y2="248"/><line x1="104" y1="260" x2="408" y2="260"/><line x1="104" y1="270" x2="408" y2="270"/><line x1="104" y1="278" x2="408" y2="278"/><line x1="104" y1="285" x2="408" y2="285"/><line x1="104" y1="291" x2="408" y2="291"/><line x1="104" y1="296" x2="408" y2="296"/><line x1="104" y1="301" x2="408" y2="301"/><line x1="104" y1="306" x2="408" y2="306"/><line x1="104" y1="311" x2="408" y2="311"/><line x1="104" y1="316" x2="408" y2="316"/><line x1="104" y1="321" x2="408" y2="321"/><line x1="104" y1="326" x2="408" y2="326"/>
     </g>
-    <rect x="0" y="346" width="512" height="166" fill="#163039"/>
-    <rect x="0" y="346" width="512" height="4" fill="#5b7d70"/>
-    <g fill="#d98a3a" opacity="0.5">
-      <rect x="222" y="360" width="68" height="6"/>
-      <rect x="210" y="378" width="92" height="6"/>
-      <rect x="232" y="396" width="48" height="6"/>
+    <rect x="0" y="332" width="512" height="180" fill="#14313b"/>
+    <rect x="0" y="332" width="512" height="3" fill="#5b7d70"/>
+    <g stroke="#e0934a" stroke-width="3" opacity="0.32" stroke-linecap="round">
+      <line x1="214" y1="344" x2="298" y2="344"/><line x1="222" y1="354" x2="290" y2="354"/><line x1="230" y1="364" x2="282" y2="364"/><line x1="238" y1="374" x2="274" y2="374"/>
     </g>
-    <g stroke="#15202a" stroke-width="6">
-      <line x1="60" y1="344" x2="452" y2="344"/>
-    </g>
-    <g stroke="#d3a04a" stroke-width="2.6" stroke-linecap="round">
-      <line x1="120" y1="300" x2="60" y2="344"/><line x1="120" y1="300" x2="96" y2="344"/><line x1="120" y1="300" x2="146" y2="344"/><line x1="120" y1="300" x2="184" y2="344"/>
-      <line x1="392" y1="300" x2="330" y2="344"/><line x1="392" y1="300" x2="364" y2="344"/><line x1="392" y1="300" x2="420" y2="344"/><line x1="392" y1="300" x2="452" y2="344"/>
-    </g>
-    <polygon points="116,344 118,296 122,296 124,344" fill="#15202a"/>
-    <polygon points="388,344 390,296 394,296 396,344" fill="#15202a"/>
-
-    <!-- splash base (behind fish) -->
-    <g fill="#f4eedd" opacity="0.95">
-      <path d="M214,352 L206,322 L222,346 L230,316 L240,348 Z"/>
-      <path d="M300,352 L308,320 L292,346 L284,318 L274,350 Z"/>
-    </g>
-
-    <!-- ===== leaping tarpon ===== -->
+    <!-- tailing redfish -->
     <g>
-      <!-- tail -->
-      <path d="M232,350 L168,432 C206,406 234,398 250,390 C268,400 288,410 306,424 L262,352 C250,346 244,346 232,350 Z"
-        fill="#f1e7cf" stroke="#14232a" stroke-width="6.5" stroke-linejoin="round"/>
-      <!-- body -->
-      <path d="M334,114
-        C320,128 306,134 292,140
-        C258,166 234,206 224,256
-        C219,290 220,320 234,350
-        C244,356 252,357 261,353
-        C273,330 289,300 301,260
-        C315,214 321,176 317,156
-        C314,140 322,126 334,114 Z"
-        fill="#f1e7cf" stroke="#14232a" stroke-width="6.5" stroke-linejoin="round"/>
-      <!-- dark backlit dorsal -->
-      <path d="M292,140 C258,166 234,206 224,256 C221,278 221,300 228,322
-        C228,290 236,250 252,212 C266,178 282,156 296,146 Z" fill="#2a464e"/>
-      <!-- belly shade -->
-      <path d="M301,260 C315,214 321,176 317,156 C322,176 320,220 308,262 C300,290 288,316 276,336 C288,312 298,288 301,260 Z" fill="#e2d4b4"/>
-      <!-- scales -->
-      <g fill="none" stroke="#14232a" stroke-width="2" opacity="0.42" stroke-linecap="round">
-        <path d="M250,206 C260,216 260,226 250,232 M268,210 C278,220 278,230 268,236 M286,216 C296,226 296,236 286,242"/>
-        <path d="M242,240 C252,250 252,260 242,266 M260,246 C270,256 270,266 260,272 M280,252 C290,262 290,272 280,278"/>
-        <path d="M238,276 C248,286 248,296 238,302 M256,282 C266,292 266,302 256,308"/>
-      </g>
-      <!-- lateral line -->
-      <path d="M276,196 C268,248 250,308 236,348" fill="none" stroke="#14232a" stroke-width="2.2" stroke-dasharray="3 9" opacity="0.6"/>
-      <!-- dorsal fin + filament -->
-      <path d="M234,228 C226,212 224,202 230,196 C238,202 242,216 242,230 Z" fill="#e6d8b6" stroke="#14232a" stroke-width="3.5"/>
-      <path d="M238,234 C222,258 212,288 208,318" fill="none" stroke="#14232a" stroke-width="3.5" stroke-linecap="round"/>
-      <!-- pectoral fin -->
-      <path d="M292,202 C308,210 320,224 322,242 C306,238 292,224 286,206 Z" fill="#e6d8b6" stroke="#14232a" stroke-width="3.5"/>
-      <!-- pelvic fin -->
-      <path d="M286,296 C298,304 304,316 302,328 C292,320 284,308 280,298 Z" fill="#e6d8b6" stroke="#14232a" stroke-width="3.5"/>
-      <!-- gill plate -->
-      <path d="M272,148 C260,172 260,198 274,218" fill="none" stroke="#14232a" stroke-width="4.5" stroke-linecap="round"/>
-      <!-- mouth (open, upturned) -->
-      <path d="M334,114 C326,124 320,134 318,146" fill="none" stroke="#14232a" stroke-width="5.5" stroke-linecap="round"/>
-      <path d="M334,114 L312,128 L322,144 Z" fill="#14232a"/>
-      <!-- eye -->
-      <circle cx="287" cy="152" r="13" fill="#f1e7cf" stroke="#14232a" stroke-width="5"/>
-      <circle cx="287" cy="152" r="5.5" fill="#14232a"/>
+      <path d="M166,376 C168,357 176,343 187,335 C184,349 186,360 193,371 C184,367 174,370 166,376 Z" fill="#14222b"/>
+      <circle cx="181" cy="360" r="4" fill="#f3d489"/>
+      <path d="M156,378 C168,373 196,373 206,378" fill="none" stroke="#14222b" stroke-width="2" opacity="0.45"/>
     </g>
-
-    <!-- splash droplets (front) -->
-    <g fill="#f4eedd">
-      <circle cx="156" cy="372" r="7"/>
-      <circle cx="178" cy="352" r="5"/>
-      <circle cx="320" cy="372" r="6.5"/>
-      <circle cx="338" cy="356" r="4.5"/>
-      <circle cx="300" cy="404" r="5"/>
-      <circle cx="208" cy="402" r="4.5"/>
+    <!-- ===== poling skiff ===== -->
+    <g fill="#14222b">
+      <path d="M88,322 C150,313 290,311 378,316 L410,318 L412,332 C360,347 150,349 104,334 C97,330 91,326 88,322 Z"/>
+      <path d="M228,314 L228,292 C228,287 231,285 236,285 L252,285 C257,285 259,289 259,294 L259,314 Z"/>
+      <path d="M356,316 L356,282 L361,282 L361,316 Z"/>
+      <path d="M402,316 L402,282 L407,282 L407,316 Z"/>
+      <path d="M348,283 L414,281 L414,287 L348,289 Z"/>
+      <path d="M404,316 L422,316 L422,330 L416,346 L410,346 L404,332 Z"/>
+      <circle cx="382" cy="217" r="9"/>
+      <path d="M382,226 C390,228 392,241 390,255 L388,281 L382,268 L376,281 L374,253 C372,241 374,229 382,226 Z"/>
+      <circle cx="150" cy="255" r="9"/>
+      <path d="M150,264 C158,266 160,279 158,293 L156,314 L150,301 L144,314 L142,291 C140,279 142,267 150,264 Z"/>
+    </g>
+    <g stroke="#14222b" stroke-linecap="round" fill="none">
+      <path d="M386,232 L399,223" stroke-width="6"/>
+      <path d="M399,223 L470,352" stroke-width="4.5"/>
+      <path d="M150,270 L130,260" stroke-width="6"/>
+      <path d="M130,260 C112,244 102,224 100,205" stroke-width="3"/>
+      <path d="M96,320 L86,349" stroke-width="4"/>
     </g>
   </g>
 </svg>
